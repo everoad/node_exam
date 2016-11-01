@@ -1,0 +1,16 @@
+doctype html
+html
+  head
+    meta(charset='utf-8')
+  body
+    div
+      form(action='/board/write' method='post' enctype='multipart/form-data')
+        input(type='text' name='title')
+        br
+        input(type='text' name='description')
+        br
+        input(type='text' name='author')
+        br
+        input(type='file' name='photos' multiple)
+        br
+        input(type='submit' value='전송')
