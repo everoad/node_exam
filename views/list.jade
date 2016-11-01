@@ -2,9 +2,13 @@ doctype html
 html
   head
     meta(charset='utf-8')
-
+    script(src='/session.js')
+    script.
+      sess('#{session.mb_email}');
   body
     ul
       -each data in list
         li= data.title
-          a
+        
+    div= session.mb_email
+    div= session.mb_id

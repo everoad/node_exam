@@ -19,15 +19,19 @@ router.route('/login')
   res.render('login');
 })
 .post((req, res) => {
-  var mb_email = req.body.mb_email;
-  var mb_pwd = req.body.mb_pwd;
-  memberModel.login([mb_email], (rows) => {
+  var mb = Object.keys(req.body).map(function(key) {
+    return req.body[key];
+  });
+  memberModel.login(mb, (rows) => {
     if(!rows[0]) {
       res.send('존재 x');
-    } else if(mb_pwd !== rows[0].mb_password) {
+    } else if(req.body.mb_pwd !== rows[0].mb_password) {
       res.send('비밀번호 틀림');
     } else {
-      res.send('성공');
+      req.session.isLogin = true;
+      req.session.mb_email = req.body.mb_email;
+      req.session.mb_id = rows[0].mb_id;
+      res.redirect('/board/list');
     }
   });
 });

@@ -8,7 +8,7 @@ exports.join = (params, callback) => {
 }
 
 exports.login = (params, callback) => {
-  var sql = 'SELECT mb_password FROM member WHERE mb_email = ?';
+  var sql = 'SELECT mb_id, mb_password FROM member WHERE mb_email = ?';
   conn.query(sql, params, (err, rows, fields) => {
     callback(rows);
   });

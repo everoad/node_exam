@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+
 const boardModel = require('../model/boardModel.js');
 
 const multer = require('multer');
