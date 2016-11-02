@@ -30,19 +30,19 @@ router.route('/write')
   res.render('write');
 })
 .post(upload.array('photos', 12), (req, res) => {
-  var title = req.body.title;
-  var desc = req.body.description;
-  var author = req.body.author;
-  var files = req.files;
+  var params = Object.keys(req.body).map((key) => {
+    return req.body[key];
+  });
 
+  var files = req.files;
   files.forEach((file) => {
     console.log(file.originalname);
   });
 
-  boardModel.write([title, desc, author], (insertId) => {
+  boardModel.write(params, (insertId) => {
     console.log(insertId);
     res.redirect('/board/list');
-  })
+  });
 });
 
 module.exports = router;

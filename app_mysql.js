@@ -4,7 +4,9 @@ var app = express();
 var bodyParser = require('body-parser');
 //memory 저장.
 var session = require('express-session');
-var fileStore = require('session-file-store')(session);
+var MySQLStore = require('express-mysql-session')(session);
+var config_db = require('./config/db_user');
+var sessionStore = new MySQLStore(config_db);
 var path = require('path');
 
 var board = require('./router/board.js');
@@ -22,7 +24,7 @@ app.use(session({
   secret: '123124SDFSDFJ@#$%@#)FJ!@#asd',
   resave: false,
   saveUninitialized: true,
-  store: new fileStore()
+  store: sessionStore
 }));
 
 app.use('/board', board);
